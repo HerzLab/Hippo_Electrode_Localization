@@ -1,0 +1,41 @@
+# Local environments and Python caches
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Markdown documentation: keep only README.md
+*.md
+!README.md
+
+# Generated results and temporary work
+/results/
+/tmp/
+*.log
+
+# Build artifacts
+/build/
+/dist/
+
+# Local credentials and editor settings
+.env
+.env.*
+!.env.example
+/.vscode/
+/.idea/
+/.codex/
+/.agents/
+*.swp
+*.swo
+*~
+
+# Operating system metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Include data/, pyproject.toml, uv.lock, and .python-version.
