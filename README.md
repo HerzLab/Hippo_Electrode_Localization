@@ -230,6 +230,10 @@ This creates images showing the electrode locations on each T1 scan. Wait until 
 
 The `r5mm` folder names reflect the default display radius. These files support localization review; Step4 calculates hippocampal surface coverage separately.
 
+**Example: localization review for `sub-001`.** Cyan regions show the 5 mm contact neighborhoods on native T1 coronal slices. Yellow markers indicate contact centers within 1 mm of each slice. Use these views to inspect coordinate alignment before segmentation; the image does not replace the human review in Step2.
+
+![Native T1 coronal slices with contact neighborhoods for sub-001](docs/images/sub-001_localization_qc.png)
+
 ## 6. Review the images with Step2
 
 This step needs a graphical desktop. If you use a remote Linux server, open its remote desktop and continue in a terminal there. A plain SSH terminal without graphics cannot show the review window.
@@ -250,6 +254,10 @@ For each participant, inspect the T1 and electrode overlay, then select the appr
 | T1_Enhanced | Retain and flag a contrast-enhanced T1 for careful segmentation review |
 
 Ask the researcher responsible for localization if you are unsure which decision applies. Each decision is saved immediately. You can close and reopen the window to continue later. Use the arrow keys to revisit images.
+
+**Example: Step2 review window.** The screenshot shows `sub-001` reopened after the saved example review was completed. The header displays the participant, review progress, and saved decision; the six buttons below the image record the reviewer's choice. A new review starts with unreviewed participants and requires your own decisions.
+
+![Step2 localization QC interface displaying sub-001 and the six review buttons](docs/images/sub-001_step2_review.png)
 
 Wait for **Review complete**, then close the window. Continue only after the final `QC_fail.csv` has been written. Do not manually fill in pass decisions to skip this review.
 
@@ -370,6 +378,22 @@ Coverage describes anatomical proximity to the hippocampal surface. It does not 
 
 Temporary rendering panels are stored in `tmp/hippomaps_rendering/`. Use the assembled images in `results/visual_qc/` for review.
 
+### Example maps from sub-001
+
+These examples use the existing outputs for the first example participant and a 5 mm coverage radius.
+
+**Individual anatomy.** Folded and unfolded views show the hippocampal subfield labels, with the dentate gyrus displayed separately below. Panels are fitted independently, so their displayed sizes should not be compared.
+
+![Folded and unfolded hippocampal subfields and dentate gyrus for sub-001](docs/images/sub-001_anatomy.png)
+
+**Contacts on MRI.** Orange contours mark the hippocampal midthickness surface. Cyan regions show intersections of the 5 mm contact neighborhoods with each coronal slice; red regions show the smaller 1 mm spheres around contact centers. Inspect the alignment of the surface and contact neighborhoods with the underlying anatomy.
+
+![Coronal MRI with hippocampal midthickness contours and contact neighborhoods for sub-001](docs/images/sub-001_coronal_midthickness_contacts.png)
+
+**Combined contact coverage.** Blue marks surface vertices within 5 mm of at least one contact. Overlapping neighborhoods count once. Gray marks vertices outside this coverage, not electrically inactive tissue. This example shows coverage on the left hippocampus.
+
+![Combined contact coverage on folded and unfolded hippocampal surfaces for sub-001](docs/images/sub-001_contactUnion_coverage.png)
+
 ## If a step stops
 
 Read the final error message and resolve it before continuing. Keep the project folder and terminal error available when asking for help. Do not delete inputs or earlier QC decisions to get past an error. Once Step2 decisions exist, reopening Step2 resumes review; rerunning Step1 requires deliberately preserving the earlier QC results first.
@@ -381,5 +405,7 @@ Windows execution has been checked locally. Linux/Apptainer and macOS command br
 The project code and documentation are released under the [MIT License](LICENSE). Third-party software, containers, models, and reference resources retain their own licenses and attribution requirements.
 
 The repository includes the two example participants in `data`, the numbered scripts, `utils`, `README.md`, `LICENSE`, `pyproject.toml`, `uv.lock`, and `.python-version`. The `.gitignore` excludes generated outputs in `results`, temporary work in `tmp`, local environments, caches, local configuration, and Markdown files other than `README.md`. The MIT License covers the software and documentation; it does not establish a separate license for participant data.
+
+The tutorial images in `docs/images/` include unchanged copies of selected `sub-001` outputs from `results/localization_qc/coronal_qc/` and `results/visual_qc/sub-001/`, plus a screenshot of the Step2 review interface displaying the existing saved decisions. Include `docs/images/` when sharing the repository so the README illustrations remain available without running the pipeline.
 
 When uploading files manually through GitHub's website or preparing an archive, omit the excluded directories yourself; `.gitignore` does not filter a manual upload or archive. Ignore rules also do not remove files that were previously tracked. Repository tracking state has not been inspected as part of this preparation.
