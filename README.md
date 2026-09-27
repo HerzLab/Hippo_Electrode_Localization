@@ -392,7 +392,7 @@ Windows execution has been checked locally. Linux/Apptainer and macOS command br
 
 ## License and repository contents
 
-The project code and documentation are released under the [MIT License](LICENSE), copyright (c) 2026 Qirui Zhang. Third-party software, containers, models, and reference resources retain their own licenses and attribution requirements.
+The project code and documentation are released under the [MIT License](LICENSE). Third-party software, containers, models, and reference resources retain their own licenses and attribution requirements.
 
 The repository includes the two example participants in `data`, the numbered scripts, `utils`, `README.md`, `LICENSE`, `pyproject.toml`, `uv.lock`, and `.python-version`. The `.gitignore` excludes generated outputs in `results`, temporary work in `tmp`, local environments, caches, local configuration, and Markdown files other than `README.md`. The MIT License covers the software and documentation; it does not establish a separate license for participant data.
 
