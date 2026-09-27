@@ -156,27 +156,13 @@ export PATH="$HOME/.local/bin:$PATH"
 module load apptainer/1.1.9
 ```
 
-These commands install uv and load Apptainer; they do not create the project `.venv`. Continue to section 3 to open the project folder, then run Step0 in section 4 when you are ready to create the environment.
+These commands install uv and load Apptainer; they do not create the project `.venv`. Continue to section 3 to create the environment with Step0.
 
 **What this produces:** The `uv` command is available on your computer. It manages Python and the project packages. The project's `.venv` is created later by Step0.
 
-## 3. Open the project folder
+## 3. Set up the project with Step0
 
-Obtain the complete project folder and unzip it if necessary. Keep the scripts, `utils`, `data`, `pyproject.toml`, and `uv.lock` together. When moving the project to another computer, create its environment there with Step0; do not copy `.venv` from the old computer.
-
-**Windows:** Open the project folder in File Explorer, right-click a blank area, and select **Open in Terminal**. Use a PowerShell tab. On the original workstation, you can also run:
-
-```powershell
-Set-Location "F:\Noa_Hippo\Hippo_Electrode_Localization"
-```
-
-**macOS or Linux:** Open Terminal, type `cd ` with a space after it, drag the project folder into the terminal, and press Enter. If you use a remote server, type `cd` followed by the project's path on that server.
-
-Run `ls`. You should see `Step0_SetupRuntime.py` and `README.md`. Keep this terminal in the project folder for every remaining command.
-
-**What this produces:** No new files. Your terminal is now in the folder where the following commands must run. All output paths below are relative to this project folder.
-
-## 4. Set up the project with Step0
+In your terminal, use `cd` to navigate to the repository folder. Run all commands below from that folder.
 
 On an HPC cluster, run `module load apptainer` again if you reopened the terminal after installing uv. Check that `apptainer --version` works in this terminal.
 
@@ -204,7 +190,7 @@ Runtime ready. Continue with Step1_LocalizationQC.py.
 
 The supplied `pyproject.toml`, `uv.lock`, and `.python-version` define the environment. They are setup inputs, not participant results.
 
-## 5. Check the example inputs
+## 4. Check the example inputs
 
 The supplied files are arranged like this:
 
@@ -222,9 +208,9 @@ When you later use your own data, the coordinates must already be in the matchin
 
 **What this produces:** No new files. `coordinates.csv` supplies the electrode locations, and each `native_T1` image supplies the matching anatomy for localization and segmentation.
 
-## 6. Generate localization images with Step1
+## 5. Generate localization images with Step1
 
-If all current T1 images and contact coordinates have already undergone localization QC elsewhere, you may use the external-QC route described in section 7 and proceed directly to Step3. Otherwise, complete Steps 1 and 2 below.
+If all current T1 images and contact coordinates have already undergone localization QC elsewhere, you may use the external-QC route described in section 6 and proceed directly to Step3. Otherwise, complete Steps 1 and 2 below.
 
 ```text
 uv run --locked python Step1_LocalizationQC.py
@@ -244,7 +230,7 @@ This creates images showing the electrode locations on each T1 scan. Wait until 
 
 The `r5mm` folder names reflect the default display radius. These files support localization review; Step4 calculates hippocampal surface coverage separately.
 
-## 7. Review the images with Step2
+## 6. Review the images with Step2
 
 This step needs a graphical desktop. If you use a remote Linux server, open its remote desktop and continue in a terminal there. A plain SSH terminal without graphics cannot show the review window.
 
@@ -309,7 +295,7 @@ uv run --locked python Step5_VisualizeHippoMaps.py --external-qc
 
 `--external-qc` explicitly confirms that external review is complete. It does not require or create `manual_qc.csv` or `subject_qc.csv`. Steps still check the exclusion table, retained participants' T1 availability, and complete finite coordinates. Step3 records the external-QC source and input fingerprints in `segmentation_config.json`. Without this option, the original Step2 review checks remain required.
 
-## 8. Segment the hippocampi with Step3
+## 7. Segment the hippocampi with Step3
 
 On an HPC cluster, first enter a compute session with at least 12 CPU cores using your cluster's instructions. In that session, open the project folder and run `module load apptainer` before the following command. Ask the administrator for the compute-session command if you do not know it.
 
@@ -331,7 +317,7 @@ The first segmentation may also download model files. Leave the terminal open an
 | `results/hippunfold/segmentation_config.json` | Records the selected participants, container, settings, and input fingerprints for tracing how segmentation was run. Its presence alone does not mean segmentation finished. |
 | `tmp/hippunfold_cache/` | Downloaded HippUnfold resources reused across runs. This is a software cache, not a participant result. |
 
-## 9. Calculate contact coverage with Step4
+## 8. Calculate contact coverage with Step4
 
 ```text
 uv run --locked python Step4_ComputeContactCoverage.py
@@ -359,7 +345,7 @@ This replaces the current coverage table. You do not need to rerun segmentation 
 
 Here `*` represents the remaining filename text. The per-contact rows above refer to individual contacts; `contactUnion` files are combined masks. The same folder structure applies to every retained participant. GIFTI (`.gii`) files contain surface data; Step5 turns them into viewable PNG images.
 
-## 10. Draw the maps with Step5
+## 9. Draw the maps with Step5
 
 ```text
 uv run --locked python Step5_VisualizeHippoMaps.py
