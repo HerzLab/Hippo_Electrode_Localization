@@ -394,18 +394,5 @@ These examples use the existing outputs for the first example participant and a 
 
 ![Combined contact coverage on folded and unfolded hippocampal surfaces for sub-001](docs/images/sub-001_contactUnion_coverage.png)
 
-## If a step stops
 
-Read the final error message and resolve it before continuing. Keep the project folder and terminal error available when asking for help. Do not delete inputs or earlier QC decisions to get past an error. Once Step2 decisions exist, reopening Step2 resumes review; rerunning Step1 requires deliberately preserving the earlier QC results first.
 
-Windows execution has been checked locally. Linux/Apptainer and macOS command branches have automated checks, but have not yet been validated by complete runs on those systems.
-
-## License and repository contents
-
-The project code and documentation are released under the [MIT License](LICENSE). Third-party software, containers, models, and reference resources retain their own licenses and attribution requirements.
-
-The repository includes the two example participants in `data`, the numbered scripts, `utils`, `README.md`, `LICENSE`, `pyproject.toml`, `uv.lock`, and `.python-version`. The `.gitignore` excludes generated outputs in `results`, temporary work in `tmp`, local environments, caches, local configuration, and Markdown files other than `README.md`. The MIT License covers the software and documentation; it does not establish a separate license for participant data.
-
-The tutorial images in `docs/images/` include unchanged copies of selected `sub-001` outputs from `results/localization_qc/coronal_qc/` and `results/visual_qc/sub-001/`, plus a screenshot of the Step2 review interface displaying the existing saved decisions. Include `docs/images/` when sharing the repository so the README illustrations remain available without running the pipeline.
-
-When uploading files manually through GitHub's website or preparing an archive, omit the excluded directories yourself; `.gitignore` does not filter a manual upload or archive. Ignore rules also do not remove files that were previously tracked. Repository tracking state has not been inspected as part of this preparation.
